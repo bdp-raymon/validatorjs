@@ -1,0 +1,24 @@
+{
+  "name": "validatorjs",
+  "version": "0.0.1",
+  "main": "dist/validator.js",
+  "module": "dist/validator.esm.js",
+  "browser": "dist/validator.umd.js",
+  "devDependencies": {
+    "@rollup/plugin-commonjs": "^11.0.1",
+    "@rollup/plugin-node-resolve": "^7.0.0",
+    "rollup": "^1.29.0",
+    "rollup-plugin-typescript": "^1.0.1",
+    "tslib": "^2.0.1",
+    "typescript": "^4.0.3"
+  },
+  "scripts": {
+    "build": "rollup -c",
+    "dev": "rollup -c -w",
+    "test": "node test/test.js",
+    "pretest": "npm run build"
+  },
+  "files": [
+    "dist"
+  ]
+}

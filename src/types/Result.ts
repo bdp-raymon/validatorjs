@@ -1,1 +1,1 @@
-export type IResult = Record<string, boolean>;
+export type IResult = Record<string, boolean | undefined>;

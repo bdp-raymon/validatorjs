@@ -1,1 +1,6 @@
-export type IResult = Record<string, boolean | undefined>;
+export type IResultValue = {
+  validate: () => boolean;
+  errors: string[];
+};
+
+export type IResult = Record<string, IResultValue>;

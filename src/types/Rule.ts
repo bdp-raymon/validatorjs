@@ -1,1 +1,1 @@
-export type IRule = Record<string, RegExp | ((value: any) => boolean)>;
+export type IRule = Record<string, (value: any) => boolean>;

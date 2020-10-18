@@ -1,22 +1,26 @@
 import { IRule } from "./types/Rule";
 import { IValue } from "./types/Value";
-import ramda from "ramda";
+import ramda, { max } from "ramda";
 import { IResult } from "./types/Result";
 
 const maxAge = (age: number) => age < 50;
 const minAge = (age: number) => age > 18;
 
 const authRules: IRule = {
-  age: [maxAge, minAge],
+  age: minAge,
 };
 
 const authValues: IValue = {
   age: 12,
 };
 
-const getErrors = (rules: ((value: any) => boolean)[], value: any) => {
+const getErrors = (
+  rules: ((value: any) => boolean) | ((value: any) => boolean)[],
+  value: any
+) => {
   const errors: string[] = [];
-  for (const rule of rules) {
+  const rulesArray = typeof rules === "function" ? [rules] : rules;
+  for (const rule of rulesArray) {
     !rule(value) && errors.push("Error");
   }
   return errors;

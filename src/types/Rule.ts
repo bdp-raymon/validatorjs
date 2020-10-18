@@ -1,3 +1,1 @@
-export interface IRule {
-  [key: string]: RegExp | (() => void);
-}
+export type IRule = Record<string, RegExp | ((value: any) => boolean)>;

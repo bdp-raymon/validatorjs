@@ -1,4 +1,6 @@
+import { BuilderResult } from "./BuilderConfig";
+
 export type IRule = Record<
   string,
-  ((value: any) => boolean) | ((value: any) => boolean)[]
+  ((value: any) => BuilderResult) | ((value: any) => BuilderResult)[]
 >;

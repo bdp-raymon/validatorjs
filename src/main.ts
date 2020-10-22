@@ -2,26 +2,53 @@ import { IRule } from "./types/Rule";
 import { IValue } from "./types/Value";
 import ramda, { max } from "ramda";
 import { IResult } from "./types/Result";
+import { BuilderConfig, BuilderResult } from "./types/BuilderConfig";
 
 const maxAge = (age: number) => age < 50;
-const minAge = (age: number) => age > 18;
+
+const validatorBuilder = (config: BuilderConfig, input: any) => {
+  const validatorFunction = (
+    message: string,
+    validator: (value: any) => boolean
+  ) => {
+    const result: BuilderResult = {
+      result: validator(input),
+      message: message || "Validation Failed",
+    };
+    return result;
+  };
+  const response = validatorFunction(config.message || "", config.validator);
+  return response;
+};
+
+const curriedValdiatorBuilder = ramda.curry(validatorBuilder);
+
+//User Code
+
+const minAge = curriedValdiatorBuilder({
+  message: "You must be more than 18",
+  validator: (value: number) => value > 18,
+});
+
+console.log(minAge(18));
 
 const authRules: IRule = {
   age: minAge,
 };
 
 const authValues: IValue = {
-  age: 12,
+  age: 27,
 };
 
 const getErrors = (
-  rules: ((value: any) => boolean) | ((value: any) => boolean)[],
+  rules: ((value: any) => BuilderResult) | ((value: any) => BuilderResult)[],
   value: any
 ) => {
   const errors: string[] = [];
   const rulesArray = typeof rules === "function" ? [rules] : rules;
   for (const rule of rulesArray) {
-    !rule(value) && errors.push("Error");
+    const response = rule(value);
+    !response.result && errors.push(response.message);
   }
   return errors;
 };

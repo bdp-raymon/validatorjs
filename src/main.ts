@@ -4,20 +4,18 @@ import ramda from "ramda";
 import { IResult } from "./types/Result";
 import { BuilderResult } from "./types/BuilderConfig";
 import { curriedValdiatorBuilder } from "./core/builder";
+import { minValidator } from "./rules/min";
 
 //User Code
 
-const minAge = curriedValdiatorBuilder({
-  message: "You must be more than 18",
-  validator: (value: number) => value > 18,
-});
+const minAge = minValidator(18);
 
 const authRules: IRule = {
-  age: minAge,
+  age: minValidator(18),
 };
 
 const authValues: IValue = {
-  age: 27,
+  age: 25,
 };
 
 const getErrors = (

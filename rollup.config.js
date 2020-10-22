@@ -43,4 +43,13 @@ export default [
     plugins: [typescript()],
     // ...
   },
+  {
+    input: "src/rules/min.ts",
+    output: {
+      name: "min",
+      dir: "dist/rules",
+    },
+    plugins: [typescript()],
+    // ...
+  },
 ];

@@ -1,27 +1,11 @@
 import { IRule } from "./types/Rule";
 import { IValue } from "./types/Value";
-import ramda, { max } from "ramda";
+import ramda from "ramda";
 import { IResult } from "./types/Result";
-import { BuilderConfig, BuilderResult } from "./types/BuilderConfig";
+import { BuilderResult } from "./types/BuilderConfig";
+import { curriedValdiatorBuilder } from "./core/builder";
 
 const maxAge = (age: number) => age < 50;
-
-const validatorBuilder = (config: BuilderConfig, input: any) => {
-  const validatorFunction = (
-    message: string,
-    validator: (value: any) => boolean
-  ) => {
-    const result: BuilderResult = {
-      result: validator(input),
-      message: message || "Validation Failed",
-    };
-    return result;
-  };
-  const response = validatorFunction(config.message || "", config.validator);
-  return response;
-};
-
-const curriedValdiatorBuilder = ramda.curry(validatorBuilder);
 
 //User Code
 

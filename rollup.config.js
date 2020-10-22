@@ -1,6 +1,7 @@
 import resolve from "@rollup/plugin-node-resolve";
 import commonjs from "@rollup/plugin-commonjs";
 import typescript from "@rollup/plugin-typescript";
+import multi from "@rollup/plugin-multi-entry";
 import pkg from "./package.json";
 
 export default [
@@ -27,13 +28,20 @@ export default [
   // `file` and `format` for each target)
   {
     input: "src/main.ts",
-    plugins: [
-      typescript(),
-    ],
+    plugins: [typescript()],
     external: ["ms"],
     output: [
       { file: pkg.main, format: "cjs" },
       { file: pkg.module, format: "es" },
     ],
+  },
+  {
+    input: "src/core/builder.ts",
+    output: {
+      name: "builder",
+      dir: "dist/core",
+    },
+    plugins: [typescript()],
+    // ...
   },
 ];

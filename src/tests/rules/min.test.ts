@@ -1,5 +1,5 @@
-import { MinConfig } from "../types/MinConfig";
-import { minValidator } from "./min";
+import { MinConfig } from "../../types/MinConfig";
+import { minValidator } from "../../rules/min";
 
 describe("min validator", () => {
   const minConfigWithoutMessage: MinConfig = {

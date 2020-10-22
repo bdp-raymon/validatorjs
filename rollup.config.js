@@ -52,4 +52,13 @@ export default [
     plugins: [typescript()],
     // ...
   },
+  {
+    input: "src/rules/regex.ts",
+    output: {
+      name: "regex",
+      dir: "dist/rules",
+    },
+    plugins: [typescript()],
+    // ...
+  },
 ];

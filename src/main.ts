@@ -3,19 +3,25 @@ import { IValue } from "./types/Value";
 import ramda from "ramda";
 import { IResult } from "./types/Result";
 import { BuilderResult } from "./types/BuilderConfig";
-import { curriedValdiatorBuilder } from "./core/builder";
 import { minValidator } from "./rules/min";
+import { regexValidator } from "./rules/regex";
 
 //User Code
 
 const minAge = minValidator(18);
+const isName = regexValidator({
+  pattern: /^[a-z]+/,
+  message: "Name should not contain numbers",
+});
 
 const authRules: IRule = {
-  age: minValidator(18),
+  age: minAge,
+  name: isName,
 };
 
 const authValues: IValue = {
-  age: 25,
+  age: 14,
+  name: "15hossein",
 };
 
 const getErrors = (

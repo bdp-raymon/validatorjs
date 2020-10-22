@@ -18,12 +18,23 @@
   "scripts": {
     "build": "rollup -c",
     "dev": "rollup -c -w",
-    "test": "node test/test.js",
+    "test": "jest",
     "pretest": "npm run build"
   },
   "files": [
     "dist"
   ],
+  "jest": {
+    "transform": {
+      ".(ts|tsx)": "ts-jest"
+    },
+    "testRegex": "(/__tests__/.*|\\.(test|spec))\\.(ts|tsx|js)$",
+    "moduleFileExtensions": [
+      "ts",
+      "tsx",
+      "js"
+    ]
+  },
   "dependencies": {
     "@types/ramda": "^0.27.29",
     "ramda": "^0.27.1"

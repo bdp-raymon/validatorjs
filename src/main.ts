@@ -5,16 +5,12 @@ import { IResult } from "./types/Result";
 import { BuilderResult } from "./types/BuilderConfig";
 import { curriedValdiatorBuilder } from "./core/builder";
 
-const maxAge = (age: number) => age < 50;
-
 //User Code
 
 const minAge = curriedValdiatorBuilder({
   message: "You must be more than 18",
   validator: (value: number) => value > 18,
 });
-
-console.log(minAge(18));
 
 const authRules: IRule = {
   age: minAge,

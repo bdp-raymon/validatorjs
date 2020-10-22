@@ -1,7 +1,7 @@
 import { curry } from "ramda";
 import { BuilderConfig, BuilderResult } from "../types/BuilderConfig";
 
-const validatorBuilder = (config: BuilderConfig, input: any) => {
+export const validatorBuilder = (config: BuilderConfig, input: any) => {
   const validatorFunction = (
     message: string,
     validator: (value: any) => boolean

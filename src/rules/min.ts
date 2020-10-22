@@ -1,5 +1,5 @@
 import { curry } from "ramda";
-import { curriedValdiatorBuilder, validatorBuilder } from "../core/builder";
+import { validatorBuilder } from "../core/builder";
 import { BuilderConfig } from "../types/BuilderConfig";
 import { MinConfig } from "../types/MinConfig";
 

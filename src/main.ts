@@ -17,7 +17,7 @@ export type IRule = Record<
 export type IValue = Record<string, any>;
 
 export type IResult = {
-  validate: () => boolean;
+  result: boolean;
   errors: Record<string, string[]>;
 };
 
@@ -55,15 +55,19 @@ const getErrors = (
 
 export const validator = (rules: IRule, values: IValue) => {
   const resultErrors: Record<string, string[]> = {};
-  let validateResult: boolean = true;
-  Object.keys(values).map((key) => {
-    const errors = getErrors(rules[key], values[key]);
-    errors.length > 0 && (resultErrors[key] = errors);
-    errors.length > 0 && (validateResult = false);
-  });
-  const result: IResult = {
-    validate: () => validateResult,
-    errors: resultErrors,
+
+  const validate = (): IResult => {
+    let validateResult: boolean = true;
+    Object.keys(values).map((key) => {
+      const errors = getErrors(rules[key], values[key]);
+      errors.length > 0 && (resultErrors[key] = errors);
+      errors.length > 0 && (validateResult = false);
+    });
+    return { result: validateResult, errors: resultErrors };
+  };
+
+  const result = {
+    validate,
   };
   return result;
 };
@@ -73,4 +77,6 @@ export const curriedValidator = ramda.curry(validator);
 const authValidator = curriedValidator(authRules);
 
 console.log(authValidator(authValues).validate());
-console.log(authValidator(authValues).errors);
+authValues.age = 20;
+authValues.name = "hossein";
+console.log(authValidator(authValues).validate());

@@ -1,10 +1,25 @@
-import { IRule } from "./types/Rule";
-import { IValue } from "./types/Value";
 import ramda from "ramda";
-import { IResult } from "./types/Result";
-import { BuilderResult } from "./types/BuilderConfig";
 import { minValidator } from "./rules/min";
 import { regexValidator } from "./rules/regex";
+
+//Types
+
+export type RuleResult = {
+  result: boolean;
+  message?: string;
+};
+
+export type IRule = Record<
+  string,
+  ((value: any) => RuleResult) | ((value: any) => RuleResult)[]
+>;
+
+export type IValue = Record<string, any>;
+
+export type IResult = {
+  validate: () => boolean;
+  errors: Record<string, string[]>;
+};
 
 //User Code
 
@@ -25,14 +40,15 @@ const authValues: IValue = {
 };
 
 const getErrors = (
-  rules: ((value: any) => BuilderResult) | ((value: any) => BuilderResult)[],
+  rules: ((value: any) => RuleResult) | ((value: any) => RuleResult)[],
   value: any
 ) => {
   const errors: string[] = [];
   const rulesArray = typeof rules === "function" ? [rules] : rules;
   for (const rule of rulesArray) {
     const response = rule(value);
-    !response.result && errors.push(response.message);
+    const message = response.message || "Validation failed";
+    !response.result && errors.push(message);
   }
   return errors;
 };

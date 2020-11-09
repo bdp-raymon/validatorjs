@@ -35,15 +35,6 @@ export default [
     ],
   },
   {
-    input: "src/core/builder.ts",
-    output: {
-      name: "builder",
-      dir: "dist/core",
-    },
-    plugins: [typescript()],
-    // ...
-  },
-  {
     input: "src/rules/min.ts",
     output: {
       name: "min",

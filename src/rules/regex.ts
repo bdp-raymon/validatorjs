@@ -1,7 +1,10 @@
 import { curry } from "ramda";
-import { validatorBuilder } from "../core/builder";
-import { BuilderConfig } from "../types/BuilderConfig";
-import { RegexConfig } from "../types/RegexConfig";
+import { RuleResult } from "../main";
+
+export type RegexConfig = {
+  pattern: string | RegExp;
+  message?: string;
+};
 
 const regexValidatorRaw = (
   config: RegexConfig | string | RegExp,
@@ -21,11 +24,11 @@ const regexValidatorRaw = (
     isConfig(config) && config.message
       ? config.message
       : `Input format is wrong`;
-  const builderConfig: BuilderConfig = {
-    validator: (value: string) => RegExp(regexPattern).test(value),
+  const validator = (value: string): RuleResult => ({
+    result: RegExp(regexPattern).test(value),
     message,
-  };
-  return validatorBuilder(builderConfig, input);
+  });
+  return validator(input);
 };
 
 export const regexValidator = curry(regexValidatorRaw);

@@ -1,5 +1,4 @@
-import { regexValidator } from "../../rules/regex";
-import { RegexConfig } from "../../types/RegexConfig";
+import { regexValidator, RegexConfig } from "../../rules/regex";
 
 describe("regex validator", () => {
   const regexPattern = /^[a-z]+/;
